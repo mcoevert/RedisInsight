@@ -187,7 +187,9 @@ export class DatabaseOverviewProvider {
    */
   private calculateUsedMemory(nodes = []): number {
     try {
-      const masterNodes = DatabaseOverviewProvider.getMasterNodesToWorkWith(nodes);
+      const masterNodes = filter(nodes, (node) => ['master', undefined].includes(
+        get(node, 'replication.role'),
+      ));
 
       if (!this.isMetricsAvailable(masterNodes, 'memory.used_memory', [undefined])) {
         return undefined;
@@ -207,12 +209,14 @@ export class DatabaseOverviewProvider {
    * @private
    */
   private calculateTotalKeys(nodes = [], index: number): [number, Record<string, number>] {
-    try {
-      const masterNodes = DatabaseOverviewProvider.getMasterNodesToWorkWith(nodes);
+    if (!this.isMetricsAvailable(nodes, 'keyspace', [undefined])) {
+      return [undefined, undefined];
+    }
 
-      if (!this.isMetricsAvailable(masterNodes, 'keyspace', [undefined])) {
-        return [undefined, undefined];
-      }
+    try {
+      const masterNodes = filter(nodes, (node) => ['master', undefined].includes(
+        get(node, 'replication.role'),
+      ));
 
       const totalKeysPerDb = {};
 
@@ -329,17 +333,5 @@ export class DatabaseOverviewProvider {
     }
 
     return true;
-  }
-
-  static getMasterNodesToWorkWith(nodes = []): any[] {
-    let masterNodes = nodes;
-
-    if (nodes?.length > 1) {
-      masterNodes = filter(nodes, (node) => ['master', undefined].includes(
-        get(node, 'replication.role'),
-      ));
-    }
-
-    return masterNodes;
   }
 }
