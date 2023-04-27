@@ -904,7 +904,18 @@ jobs:
 
             done
 
+  poc-job:
+    docker:
+      - image: cimg/node:16.15.1
+    steps:
+      - run:
+          name: POC job
+          command: |
+            echo "OK"
 workflows:
+  poc-workflow:
+    jobs:
+      - poc-job
   # FE Unit tests for "fe/feature" or "fe/bugfix" branches only
   frontend-tests:
     jobs:
