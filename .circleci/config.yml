@@ -905,6 +905,10 @@ jobs:
             done
 
   poc-job:
+    parameters:
+      param:
+        type: string
+        default: "some:param"
     docker:
       - image: cimg/node:16.15.1
     steps:
