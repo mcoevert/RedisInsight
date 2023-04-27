@@ -906,6 +906,26 @@ jobs:
             done
 
 workflows:
+  fxv:
+    jobs:
+      - setup-sign-certificates:
+          name: Setup sign certificates (prod)
+      - setup-build:
+          name: Setup build (prod)
+          env: prod
+          requires:
+            - Setup sign certificates (prod)
+      - windows:
+          name: Build app - Windows (prod)
+          env: prod
+          requires:
+            - Setup build (prod)
+      - virustotal:
+          name: Virus check - exe (prod)
+          ext: .exe
+          requires:
+            - Build app - Windows (prod)
+
   # FE Unit tests for "fe/feature" or "fe/bugfix" branches only
   frontend-tests:
     jobs:
