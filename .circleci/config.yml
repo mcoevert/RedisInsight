@@ -945,6 +945,7 @@ jobs:
     parameters:
       build-args:
         type: string
+        default: ""
     steps:
       - run:
           command: \
@@ -953,10 +954,13 @@ jobs:
 parameters:
   lin:
     type: string
+    default: ""
   mac:
     type: string
+    default: ""
   win:
     type: string
+    default: ""
 
 workflows:
   manual-build-linux:
