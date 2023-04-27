@@ -917,10 +917,53 @@ jobs:
           command: |
             echo "OK"
             echo << parameters.jobparam >>
+  build-lin:
+    docker:
+      - image: cimg/node:16.15.1
+    parameters:
+      build-args:
+        type: string
+    steps:
+      - run:
+          command: \
+            echo "build-lin"
+            echo "yarn package:env << parameters.build-args >>"
+  build-mac:
+    docker:
+      - image: cimg/node:16.15.1
+    parameters:
+      build-args:
+        type: string
+    steps:
+      - run:
+          command: \
+            echo "build-mac"
+            echo "yarn package:env << parameters.build-args >>"
+  build-win:
+    docker:
+      - image: cimg/node:16.15.1
+    parameters:
+      build-args:
+        type: string
+    steps:
+      - run:
+          command: \
+            echo "build-win"
+            echo "yarn package:env << parameters.build-args >>"
+parameters:
+  lin:
+    type: string
+  mac:
+    type: string
+  win:
+    type: string
+
 workflows:
-  poc-workflow:
+  manual-build-linux:
+    when: << pipeline.parameters.lin >>
     jobs:
-      - poc-job
+      - build-lin:
+          build-args: << pipeline.parameters.lin >>
   # FE Unit tests for "fe/feature" or "fe/bugfix" branches only
   frontend-tests:
     jobs:
