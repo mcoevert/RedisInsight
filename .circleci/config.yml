@@ -906,9 +906,9 @@ jobs:
 
   poc-job:
     parameters:
-      param:
+      jobparam:
         type: string
-        default: "some:param"
+        default: "job:default:param"
     docker:
       - image: cimg/node:16.15.1
     steps:
@@ -916,6 +916,7 @@ jobs:
           name: POC job
           command: |
             echo "OK"
+            echo << parameters.jobparam >>
 workflows:
   poc-workflow:
     jobs:
