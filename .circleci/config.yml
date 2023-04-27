@@ -904,19 +904,6 @@ jobs:
 
             done
 
-  poc-job:
-    parameters:
-      jobparam:
-        type: string
-        default: "job:default:param"
-    docker:
-      - image: cimg/node:16.15.1
-    steps:
-      - run:
-          name: POC job
-          command: |
-            echo "OK"
-            echo << parameters.jobparam >>
   build-lin:
     docker:
       - image: cimg/node:16.15.1
@@ -925,7 +912,7 @@ jobs:
         type: string
     steps:
       - run:
-          command: \
+          command: |
             echo "build-lin"
             echo "yarn package:env << parameters.build-args >>"
   build-mac:
@@ -936,7 +923,7 @@ jobs:
         type: string
     steps:
       - run:
-          command: \
+          command: |
             echo "build-mac"
             echo "yarn package:env << parameters.build-args >>"
   build-win:
@@ -948,7 +935,7 @@ jobs:
         default: ""
     steps:
       - run:
-          command: \
+          command: |
             echo "build-win"
             echo "yarn package:env << parameters.build-args >>"
 parameters:
