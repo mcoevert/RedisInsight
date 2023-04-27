@@ -629,7 +629,7 @@ jobs:
             - release/redisstack
   windows:
     executor:
-      name: default
+      name: win/default
     parameters:
       env:
         description: Build environment (stage || prod)
