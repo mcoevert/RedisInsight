@@ -904,6 +904,22 @@ jobs:
 
             done
 
+  publish-prod-snapcraft:
+    executor: linux-executor
+    steps:
+      - checkout
+      - run:
+          name: publish
+          command: |
+            mkdir snapcraft
+            downloadLatestFolderPath="public/latest"
+            snapcraftFileName="RedisInsight-v2-linux-amd64.snap"
+
+            aws s3 cp s3://${AWS_BUCKET_NAME}/${downloadLatestFolderPath}/${snapcraftFileName} ./snapcraft
+
+            snapcraft upload --release=latest/stable ./snapcraft/${snapcraftFileName}
+
+
 workflows:
   # FE Unit tests for "fe/feature" or "fe/bugfix" branches only
   frontend-tests:
@@ -1204,6 +1220,11 @@ workflows:
           name: Publish AWS S3
           requires:
             - Approve Publish Release (prod)
+          <<: *prodFilter # double check for "latest"
+      - publish-prod-snapcraft:
+          name: Publish Snapcraft
+          requires:
+            - Publish AWS S3
           <<: *prodFilter # double check for "latest"
   # Nightly tests
   nightly:
