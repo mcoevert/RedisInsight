@@ -9,6 +9,7 @@ import { RedisModule } from 'src/modules/redis/redis.module';
 import { AnalyticsModule } from 'src/modules/analytics/analytics.module';
 import { SshModule } from 'src/modules/ssh/ssh.module';
 import { NestjsFormDataModule } from 'nestjs-form-data';
+import { FeatureModule } from 'src/modules/feature/feature.module';
 
 @Global()
 @Module({
@@ -23,6 +24,7 @@ import { NestjsFormDataModule } from 'nestjs-form-data';
     DatabaseRecommendationModule,
     SshModule,
     NestjsFormDataModule,
+    FeatureModule.register(),
   ],
   exports: [
     EncryptionModule,
