@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { filter, isNull } from 'lodash';
 import { plainToClass } from 'class-transformer';
+import { showMessage } from 'shared-code-redis-test'
 import { EncryptionService } from 'src/modules/encryption/encryption.service';
 import { CommandExecutionEntity } from 'src/modules/workbench/entities/command-execution.entity';
 import { CommandExecution } from 'src/modules/workbench/models/command-execution';
@@ -39,6 +40,7 @@ export class LocalCommandExecutionRepository extends CommandExecutionRepository 
   async createMany(commandExecutions: Partial<CommandExecution>[]): Promise<CommandExecution[]> {
     // todo: limit by 30 max to insert
     let entities = await Promise.all(commandExecutions.map(async (commandExecution) => {
+      commandExecution.command = showMessage(commandExecution.command)
       const entity = plainToClass(CommandExecutionEntity, commandExecution);
 
       // Do not store command execution result that exceeded limitation

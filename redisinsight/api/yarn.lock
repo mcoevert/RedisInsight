@@ -7193,6 +7193,13 @@ sha.js@^2.4.11:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+shared-code-redis-test@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shared-code-redis-test/-/shared-code-redis-test-1.0.1.tgz#7735d6f26cd6029dacf5fbd6109ba9cc0b463ebf"
+  integrity sha512-rbCjxe4tZFUqyAg2eX0oKgZdNU0PF6zA/kDURTchtk4gX+kNox2GvrNbZQQK88Al3Wg6mITqnhKLA9pfCa3vDw==
+  dependencies:
+    typescript "^5.0.4"
+
 shebang-command@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
@@ -8220,6 +8227,11 @@ typescript@^4.0.5:
   version "4.5.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.4.tgz#a17d3a0263bf5c8723b9c52f43c5084edf13c2e8"
   integrity sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==
+
+typescript@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.4.tgz#b217fd20119bd61a94d4011274e0ab369058da3b"
+  integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
 
 uid@2.0.2, uid@^2.0.0:
   version "2.0.2"

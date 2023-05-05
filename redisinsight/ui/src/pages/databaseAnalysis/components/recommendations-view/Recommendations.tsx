@@ -13,6 +13,7 @@ import {
   EuiText,
   EuiToolTip,
 } from '@elastic/eui'
+import { showMessage } from 'shared-code-redis-test'
 import { ThemeContext } from 'uiSrc/contexts/themeContext'
 import { dbAnalysisSelector } from 'uiSrc/slices/analytics/dbAnalysis'
 import { connectedInstanceSelector } from 'uiSrc/slices/instances/instances'
@@ -32,6 +33,7 @@ import { EXTERNAL_LINKS } from 'uiSrc/constants/links'
 import { RecommendationVoting, RecommendationCopyComponent } from 'uiSrc/components'
 import { findMarkdownPathByPath } from 'uiSrc/utils'
 import { renderBadges, renderBadgesLegend, renderContent, sortRecommendations } from './utils'
+// import { showMessage } from '../../../../../../shared/my-library/src'
 
 import styles from './styles.module.scss'
 
@@ -49,18 +51,22 @@ const Recommendations = () => {
   const dispatch = useDispatch()
   const { instanceId } = useParams<{ instanceId: string }>()
 
-  const handleToggle = (isOpen: boolean, id: string) => sendEventTelemetry({
-    event: isOpen
-      ? TelemetryEvent.DATABASE_ANALYSIS_RECOMMENDATIONS_EXPANDED
-      : TelemetryEvent.DATABASE_ANALYSIS_RECOMMENDATIONS_COLLAPSED,
-    eventData: {
-      databaseId: instanceId,
-      recommendation: recommendationsContent[id]?.telemetryEvent || id,
-      provider,
-    }
-  })
+  // const handleToggle = (isOpen: boolean, id: string) => sendEventTelemetry({
+  //   event: isOpen
+  //     ? TelemetryEvent.DATABASE_ANALYSIS_RECOMMENDATIONS_EXPANDED
+  //     : TelemetryEvent.DATABASE_ANALYSIS_RECOMMENDATIONS_COLLAPSED,
+  //   eventData: {
+  //     databaseId: instanceId,
+  //     recommendation: recommendationsContent[id]?.telemetryEvent || id,
+  //     provider,
+  //   }
+  // })
+
+  const handleToggle = () => showMessage('Yeahh')
+  console.log(showMessage)
 
   const goToTutorial = (mdPath: string, id: string) => {
+    showMessage('Yeahh')
     sendEventTelemetry({
       event: TelemetryEvent.DATABASE_RECOMMENDATIONS_TUTORIAL_CLICKED,
       eventData: {
@@ -117,7 +123,7 @@ const Recommendations = () => {
           )}
         </EuiFlexItem>
         <EuiFlexItem grow={false}>
-          {title}
+          {showMessage('Yeahh')}
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiFlexItem grow={false}>
