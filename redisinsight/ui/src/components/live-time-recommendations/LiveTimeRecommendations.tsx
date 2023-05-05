@@ -175,7 +175,7 @@ const LiveTimeRecommendations = () => {
       return <WelcomeScreen />
     }
 
-    return recommendationsList?.map(({ id, name, read, vote, hide }) => (
+    return recommendationsList?.map(({ id, name, read, vote, hide, params }) => (
       <Recommendation
         id={id}
         key={name}
@@ -187,6 +187,7 @@ const LiveTimeRecommendations = () => {
         tutorials={tutorials}
         tutorial={recommendationsContent[name]?.tutorial}
         provider={provider}
+        params={params}
       />
     ))
   }
@@ -260,6 +261,9 @@ const LiveTimeRecommendations = () => {
             onClick={toggleContent}
             data-testid="recommendations-trigger"
           >
+            {totalUnread > 0 && (
+              <span className={styles.totalUnread} data-testid="recommendations-unread-count">{totalUnread}</span>
+            )}
             {isHighlighted && !isContentVisible
               ? <TriggerActiveIcon className={styles.triggerIcon} />
               : <TriggerIcon className={styles.triggerIcon} />}

@@ -21,7 +21,7 @@ import { FeatureModule } from 'src/modules/feature/feature.module';
     CertificateModule.register(),
     DatabaseModule.register(),
     RedisModule,
-    DatabaseRecommendationModule,
+    DatabaseRecommendationModule.register(),
     SshModule,
     NestjsFormDataModule,
     FeatureModule.register(),
