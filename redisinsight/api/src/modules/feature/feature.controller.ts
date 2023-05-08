@@ -25,8 +25,7 @@ export class FeatureController {
     responses: [
       {
         status: 200,
-        description: 'Application settings',
-        // type: GetAppSettingsResponse,
+        description: 'Get list of features',
       },
     ],
   })

@@ -13,6 +13,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { NotificationServerEvents } from 'src/modules/notification/constants';
 import { NotificationsDto } from 'src/modules/notification/dto';
 import { GlobalNotificationProvider } from 'src/modules/notification/providers/global-notification.provider';
+import { FeatureConfig } from '../feature/model/feature';
 
 const SOCKETS_CONFIG = config.get('sockets');
 
@@ -38,5 +39,10 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
   @OnEvent(NotificationServerEvents.Notification)
   notification(data: NotificationsDto) {
     this.wss.of('/').emit(NotificationServerEvents.Notification, data);
+  }
+
+  @OnEvent(NotificationServerEvents.Feature)
+  feature(data: FeatureConfig) {
+    this.wss.of('/').emit(NotificationServerEvents.Feature, data);
   }
 }

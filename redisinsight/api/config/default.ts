@@ -202,4 +202,8 @@ export default {
     host: process.env.REDIS_STACK_DATABASE_HOST,
     port: process.env.REDIS_STACK_DATABASE_PORT,
   },
+  remote_config: {
+    url: process.env.REMOTE_CONFIG_URL
+      || 'https://raw.githubusercontent.com/RedisInsight/RedisInsight/beta-features/redisinsight/api/src/remote-config.json',
+  }
 };

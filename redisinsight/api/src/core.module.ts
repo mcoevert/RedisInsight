@@ -35,6 +35,7 @@ import { FeatureModule } from 'src/modules/feature/feature.module';
     RedisModule,
     SshModule,
     NestjsFormDataModule,
+    FeatureModule,
   ],
 })
 export class CoreModule {}

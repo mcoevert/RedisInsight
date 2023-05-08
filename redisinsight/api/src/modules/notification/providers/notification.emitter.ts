@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { NotificationDto, NotificationsDto } from 'src/modules/notification/dto';
+import { FeatureConfig } from 'src/modules/feature/model/feature';
 
 @Injectable()
 export class NotificationEmitter {
@@ -36,6 +37,22 @@ export class NotificationEmitter {
       }));
     } catch (e) {
       this.logger.error('Unable to prepare dto for notifications', e);
+      // ignore error
+    }
+  }
+
+  @OnEvent(NotificationEvents.UpdateFeatureList)
+  async feature(feature: FeatureConfig) {
+    try {
+      if (!feature) {
+        return;
+      }
+
+      this.logger.debug('Updated feature list to emit');
+
+      this.eventEmitter.emit(NotificationServerEvents.Feature, feature);
+    } catch (e) {
+      this.logger.error('Unable to prepare dto for feature list', e);
       // ignore error
     }
   }

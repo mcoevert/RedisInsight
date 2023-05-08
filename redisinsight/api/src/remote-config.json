@@ -1,0 +1,7 @@
+{
+  "features": {
+    "liveRecommendations": {
+      "flag": true
+    }
+  }
+}
