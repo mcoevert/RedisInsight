@@ -49,7 +49,6 @@ export class CustomTutorialManifestProvider {
   private async generateManifestEntry(path: string, relativePath: string = '/'): Promise<CustomTutorialManifest[]> {
     const manifest = [];
     const entries = await fs.readdir(path);
-
     for (let i = 0; i < entries.length; i += 1) {
       const entry = entries[i];
 
@@ -75,7 +74,7 @@ export class CustomTutorialManifestProvider {
           label: name,
           type: CustomTutorialManifestType.InternalLink,
           args: {
-            path: join(relativePath, entry),
+            path: join(relativePath, entry?.replace(/\\/g, '/')),
           },
         });
       }

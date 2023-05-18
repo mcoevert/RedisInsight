@@ -85,6 +85,7 @@ describe('CustomTutorialManifestProvider', () => {
         'file2.md',
         '.idea', // should be ignored since starts with .
         '_some.md', // should be ignored since starts with _
+        '/file3.md',
       ] as unknown as Dirent[];
 
       mFs.readdir
@@ -99,6 +100,8 @@ describe('CustomTutorialManifestProvider', () => {
         .mockResolvedValueOnce(({ isDirectory: () => false }) as Stats) // subfolder/file2.md
         .mockResolvedValueOnce(({ isDirectory: () => true }) as Stats) // subfolder/subsubfolder/
         .mockResolvedValueOnce(({ isDirectory: () => false }) as Stats) // subfolder/subsubfolder/file.md
+        .mockResolvedValueOnce(({ isDirectory: () => false }) as Stats) // subfolder/subsubfolder/file2.md
+        .mockResolvedValueOnce(({ isDirectory: () => false }) as Stats) // subfolder/subsubfolder///file3.md
         .mockResolvedValueOnce(({ isDirectory: () => false }) as Stats) // subfolder/subsubfolder/file2.md
         .mockResolvedValueOnce(({ isDirectory: () => false }) as Stats); // manifest.json
 
@@ -147,6 +150,14 @@ describe('CustomTutorialManifestProvider', () => {
                   },
                   id: 'file2.md',
                   label: 'file2',
+                  type: 'internal-link',
+                },
+                {
+                  args: {
+                    path: '/subfolder/subsubfolder/file3.md',
+                  },
+                  id: '//file3.md',
+                  label: 'file3',
                   type: 'internal-link',
                 },
               ],
