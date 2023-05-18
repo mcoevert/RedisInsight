@@ -85,7 +85,7 @@ describe('CustomTutorialManifestProvider', () => {
         'file2.md',
         '.idea', // should be ignored since starts with .
         '_some.md', // should be ignored since starts with _
-        '/file3.md',
+        '//file3.md',
       ] as unknown as Dirent[];
 
       mFs.readdir
