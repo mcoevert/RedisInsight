@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import AutoSizer from 'react-virtualized-auto-sizer'
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
-import { connectedInstanceSelector, connectedInstanceOverviewSelector } from 'uiSrc/slices/instances/instances'
-import { pubSubSelector } from 'uiSrc/slices/pubsub/pubsub'
-import { isVersionHigherOrEquals } from 'uiSrc/utils'
-import { CommandsVersions } from 'uiSrc/constants/commandsVersions'
-import EmptyMessagesList from './EmptyMessagesList'
-import MessagesList from './MessagesList'
+import {
+  connectedInstanceSelector,
+  connectedInstanceOverviewSelector,
+} from 'uiSrc/slices/instances/instances';
+import { pubSubSelector } from 'uiSrc/slices/pubsub/pubsub';
+import { isVersionHigherOrEquals } from 'uiSrc/utils';
+import { CommandsVersions } from 'uiSrc/constants/commandsVersions';
+import EmptyMessagesList from './EmptyMessagesList';
+import MessagesList from './MessagesList';
 
-import styles from './MessagesList/styles.module.scss'
+import styles from './MessagesList/styles.module.scss';
 
 const MessagesListWrapper = () => {
-  const { messages = [], isSubscribed } = useSelector(pubSubSelector)
-  const { connectionType } = useSelector(connectedInstanceSelector)
-  const { version } = useSelector(connectedInstanceOverviewSelector)
+  const { messages = [], isSubscribed } = useSelector(pubSubSelector);
+  const { connectionType } = useSelector(connectedInstanceSelector);
+  const { version } = useSelector(connectedInstanceOverviewSelector);
 
-  const [isSpublishNotSupported, setIsSpublishNotSupported] = useState<boolean>(true)
+  const [isSpublishNotSupported, setIsSpublishNotSupported] =
+    useState<boolean>(true);
 
   useEffect(() => {
     setIsSpublishNotSupported(
@@ -24,11 +28,18 @@ const MessagesListWrapper = () => {
         version,
         CommandsVersions.SPUBLISH_NOT_SUPPORTED.since
       )
-    )
-  }, [version])
+    );
+  }, [version]);
+
+  const [filter, setFilter] = useState('');
 
   return (
     <>
+      <input
+        type="text"
+        onChange={(event) => setFilter(event.target.value)}
+        value={filter}
+      />
       {(messages.length > 0 || isSubscribed) && (
         <div className={styles.wrapperContainer}>
           <div className={styles.header} data-testid="messages-list">
@@ -40,7 +51,9 @@ const MessagesListWrapper = () => {
             <AutoSizer>
               {({ width, height }) => (
                 <MessagesList
-                  items={messages}
+                  items={messages.filter((message) =>
+                    message.channel.startsWith(filter)
+                  )}
                   width={width}
                   height={height}
                 />
@@ -50,10 +63,13 @@ const MessagesListWrapper = () => {
         </div>
       )}
       {messages.length === 0 && !isSubscribed && (
-        <EmptyMessagesList isSpublishNotSupported={isSpublishNotSupported} connectionType={connectionType} />
+        <EmptyMessagesList
+          isSpublishNotSupported={isSpublishNotSupported}
+          connectionType={connectionType}
+        />
       )}
     </>
-  )
-}
+  );
+};
 
-export default MessagesListWrapper
+export default MessagesListWrapper;
